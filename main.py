@@ -1,5 +1,4 @@
 import pyglet
-from pyglet.window import key
 from pyglet.gl import *
 from random import *
 
@@ -27,7 +26,7 @@ def get_value(r, c):
 def add_neighbors(row, col):
 	total = 0
 
-	values =[
+	neighborValues =[
 		[row-1, col-1],
 		[row-1, col],
 		[row-1, col+1],
@@ -38,7 +37,7 @@ def add_neighbors(row, col):
 		[row+1, col+1]
 	]
 
-	for item in values:
+	for item in neighborValues:
 		total += get_value(item[0], item[1])
 
 	return total
@@ -66,7 +65,6 @@ def game_of_life(t, state):
 
 
 def update(dt):
-#update objects here
 	updateList = []
 	for row in xrange(0, size):
 		for col in xrange(0, size):
@@ -84,8 +82,6 @@ def update(dt):
 
 @window.event
 def on_draw():
-    glClear(GL_COLOR_BUFFER_BIT) #i think it clears the window to draw something new
-
     for row in xrange(0, size):
     	for col in xrange(0, size):
     		if tiles[row][col] == 1:

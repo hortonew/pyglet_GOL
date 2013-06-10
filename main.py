@@ -16,48 +16,30 @@ for i in xrange(0, size):
 	for j in xrange(0, size):
 		tiles[i][j] = randint(0,1)
 
+def get_value(r, c):
+	try:
+		r = int(tiles[r][c] or 0)
+		return r
+	except IndexError:
+		return 0
+
+
 def add_neighbors(row, col):
 	total = 0
 
-	try:
-		total += int(tiles[row-1][col-1] or 0) #top left
-	except IndexError:
-		pass
+	values =[
+		[row-1, col-1],
+		[row-1, col],
+		[row-1, col+1],
+		[row, col-1],
+		[row, col+1],
+		[row+1, col-1],
+		[row+1, col],
+		[row+1, col+1]
+	]
 
-	try:
-		total += int(tiles[row-1][col] or 0) #top mid
-	except IndexError:
-		pass
-
-	try:
-		total += int(tiles[row-1][col+1] or 0) #top right
-	except IndexError:
-		pass
-	
-	try:
-		total += int(tiles[row][col-1] or 0) # left
-	except IndexError:
-		pass
-
-	try:	
-		total += int(tiles[row][col+1] or 0) # right
-	except IndexError:
-		pass
-
-	try:	
-		total += int(tiles[row+1][col-1] or 0) #bot left
-	except IndexError:
-		pass
-
-	try:	
-		total += int(tiles[row+1][col] or 0) #bot mid
-	except IndexError:
-		pass
-
-	try:	
-		total += int(tiles[row+1][col+1] or 0) #bot right
-	except IndexError:
-		pass
+	for item in values:
+		total += get_value(item[0], item[1])
 
 	return total
 
